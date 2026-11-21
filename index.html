@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Кулинарная история поколений ВГУИТ</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Segoe UI', Tahoma, Arial, sans-serif; line-height: 1.6; color: #333; background-color: #f9f7f4; }
+        img { max-width: 100%; height: auto; display: block; }
+        .container { max-width: 1280px; margin: 0 auto; padding: 0 20px; width: 100%; }
+        
+        /* Шапка */
+        .header { background: linear-gradient(135deg, #6b4c3b 0%, #8b6f5c 100%); color: #fff; padding: 15px 0; position: sticky; top: 0; z-index: 100; box-shadow: 0 2px 10px rgba(0,0,0,0.1); }
+        .header .container { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px; }
+        
+        /* Контейнер для логотипа */
+        .logo-container { display: flex; align-items: center; gap: 15px; }
+        
+        /* Стили для картинки-логотипа */
+        .logo-img { 
+            width: 60px; 
+            height: 60px; 
+            object-fit: contain; 
+            background-color: #fff; /* Белый фон, чтобы картинка выделялась на коричневом */
+            border-radius: 50%; /* Круглая форма */
+            padding: 3px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+        }
+        
+        .logo { font-size: 1.4rem; font-weight: 700; letter-spacing: 0.5px; margin: 0; }
+        
+        .nav { display: flex; gap: 15px; flex-wrap: wrap; }
+        .nav-link { color: #fff; text-decoration: none; padding: 8px 15px; border-radius: 4px; font-weight: 500; transition: 0.3s; }
+        .nav-link:hover { background: rgba(255,255,255,0.2); }
+
+        /* Главный баннер */
+        .hero { background: linear-gradient(135deg, #f0e6dc 0%, #e8d9c8 100%); padding: 80px 0; text-align: center; }
+        .hero h1 { font-size: 2.5rem; margin-bottom: 20px; color: #4a3428; }
+        .hero-text { font-size: 1.2rem; max-width: 900px; margin: 0 auto 30px; color: #555; }
+        
+        /* Кнопки */
+        .btn { display: inline-block; padding: 12px 30px; background: #6b4c3b; color: #fff; text-decoration: none; border-radius: 6px; font-weight: 600; border: 2px solid #6b4c3b; transition: 0.3s; }
+        .btn:hover { background: #8b6f5c; border-color: #8b6f5c; transform: translateY(-2px); box-shadow: 0 4px 12px rgba(0,0,0,0.2); }
+
+        /* Секции */
+        .section { padding: 70px 0; }
+        .section-title { text-align: center; font-size: 2.2rem; margin-bottom: 50px; color: #4a3428; }
+        
+        /* Блок "О проекте" */
+        .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 30px; }
+        .about-card { background: #fff; padding: 35px; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); border-top: 4px solid #8b6f5c; }
+        .about-card h3 { color: #6b4c3b; margin-bottom: 15px; font-size: 1.4rem; }
+
+        /* Галерея */
+        .photo-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 25px; margin-bottom: 40px; }
+        .photo-card { background: #fff; border-radius: 12px; overflow: hidden; box-shadow: 0 4px 15px rgba(0,0,0,0.05); }
+        .photo-card img { width: 100%; height: 250px; object-fit: cover; transition: transform 0.3s; }
+        .photo-card:hover img { transform: scale(1.05); }
+        .photo-card p { padding: 20px; text-align: center; font-weight: 600; color: #6b4c3b; font-size: 1.1rem; }
+
+        /* Рецепты */
+        .recipe-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(380px, 1fr)); gap: 35px; }
+        .recipe-card { background: #fff; padding: 35px; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.06); border-top: 5px solid #8b6f5c; transition: transform 0.3s ease, box-shadow 0.3s ease; display: flex; flex-direction: column; }
+        .recipe-card:hover { transform: translateY(-5px); box-shadow: 0 8px 25px rgba(0,0,0,0.12); }
+        .recipe-card h3 { color: #4a3428; margin-bottom: 20px; font-size: 1.5rem; border-bottom: 1px solid #eee; padding-bottom: 15px; }
+        .recipe-card p { margin-bottom: 10px; font-weight: 500; }
+        .recipe-card ul, .recipe-card ol { margin-left: 20px; margin-bottom: 15px; color: #555; line-height: 1.7; }
+        .recipe-card li { margin-bottom: 8px; }
+
+        /* Команда */
+        .team-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px; }
+        .team-card { background: #fff; padding: 25px; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); text-align: center; }
+        .team-card h4 { color: #4a3428; margin-bottom: 5px; font-size: 1.1rem; }
+        .team-card p { font-size: 0.9rem; color: #666; margin-bottom: 10px; }
+        .team-role { font-weight: bold; color: #8b6f5c; font-size: 0.9rem; display: block; margin-bottom: 10px; }
+        .team-contact { font-size: 0.85rem; color: #0066cc; text-decoration: none; }
+
+        /* Подвал */
+        .footer { background: #4a3428; color: #fff; padding: 30px 0; text-align: center; }
+        .footer p { margin-bottom: 10px; }
+        .footer-small { font-size: 0.85rem; opacity: 0.7; }
+
+        /* Адаптивность для телефонов */
+        @media (max-width: 768px) {
+            .header .container { flex-direction: column; text-align: center; }
+            .logo-container { justify-content: center; margin-bottom: 10px; }
+            .nav { justify-content: center; width: 100%; }
+            .hero h1 { font-size: 1.8rem; }
+            .hero-text { font-size: 1rem; }
+            .about-grid { grid-template-columns: 1fr; }
+            .section-title { font-size: 1.8rem; }
+            .recipe-grid { grid-template-columns: 1fr; }
+            .recipe-card { padding: 25px; }
+        }
+        @media (max-width: 480px) {
+            .photo-grid, .team-grid { grid-template-columns: 1fr; }
+            .hero { padding: 50px 0; }
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="container">
+            <div class="logo-container">
+                <!-- Здесь ссылка на твой файл в папке -->
+                <img src="logo.png" alt="Логотип ВГУИТ" class="logo-img">
+                <h1 class="logo">ВГУИТ | Кулинарная история</h1>
+            </div>
+            
+            <nav class="nav">
+                <a href="#about" class="nav-link">О проекте</a>
+                <a href="#gallery" class="nav-link">Галерея</a>
+                <a href="#recipes" class="nav-link">Рецепты</a>
+                <a href="#team" class="nav-link">Команда</a>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <!-- Баннер -->
+        <section class="hero">
+            <div class="container">
+                <h1>«Кулинарная история поколений ВГУИТ»</h1>
+                <p class="hero-text">
+                    Проект направлен на установление связи между поколениями через традиционную кухню. Команда студентов собирает у преподавателей ВГУИТ рецепты, которые имеют для них семейное или личное значение.
+                </p>
+                <a href="#about" class="btn">Узнать больше</a>
+            </div>
+        </section>
+
+        <!-- О проекте -->
+        <section id="about" class="section">
+            <div class="container">
+                <h2 class="section-title">О проекте</h2>
+                <div class="about-grid">
+                    <div class="about-card">
+                        <h3>Проблема</h3>
+                        <p>Ослабление неформальной связи между поколениями и постепенная утрата семейных кулинарных традиций. Молодое поколение не всегда знает истории и рецепты своих родителей, а опыт старшего поколения редко фиксируется в современной форме.</p>
+                    </div>
+                    <div class="about-card">
+                        <h3>Наша цель</h3>
+                        <p>Сохранить и передать семейные ценности и кулинарные традиции между поколениями через сбор, приготовление и сравнение традиционных рецептов преподавателей и родственников студентов, создав мини-книги с рецептами.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Галерея -->
+        <section id="gallery" class="section" style="background-color: #f0e6dc;">
+            <div class="container">
+                <h2 class="section-title">Фотографии блюд</h2>
+                <div class="photo-grid">
+                    <div class="photo-card">
+                        <img src="https://images.unsplash.com/photo-1546069901-ba9599a7e63c?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Салат из сельди">
+                        <p>Салат из сельди ("Черная икра")</p>
+                    </div>
+                    <div class="photo-card">
+                        <img src="https://images.unsplash.com/photo-1604908176997-125f25cc6f3d?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Курица с грибами">
+                        <p>Курица с грибами и сыром</p>
+                    </div>
+                    <div class="photo-card">
+                        <img src="https://images.unsplash.com/photo-1587314168485-3236d6710814?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Ажурные блинчики">
+                        <p>Ажурные блинчики</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Рецепты -->
+        <section id="recipes" class="section">
+            <div class="container">
+                <h2 class="section-title">Семейные рецепты</h2>
+                <div class="recipe-grid">
+                    
+                    <!-- Рецепт 1 -->
+                    <article class="recipe-card">
+                        <h3>Салат из сельди ("Черная икра")</h3>
+                        <p><strong>Ингредиенты:</strong></p>
+                        <ul>
+                            <li>Сельдь — 1 шт. (200-250 г)</li>
+                            <li>Лук репчатый (средний) — 4 головки</li>
+                            <li>Масло растительное — 0,5 стакана</li>
+                            <li>Томатная паста — 2 ч. л.</li>
+                            <li>Крупа «саго» — 1 стакан</li>
+                        </ul>
+                        <p><strong>Приготовление:</strong></p>
+                        <ol>
+                            <li>Сельдь очистить, удалить кости.</li>
+                            <li>Лук порезать и обжарить на растительном масле. Вытащить лук из масла (масло сохранить).</li>
+                            <li>Лук и сельдь пропустить через мясорубку.</li>
+                            <li>В оставшееся от жарки лука масло положить томатную пасту и слегка обжарить.</li>
+                            <li>Отварить саго (2-3 минуты), промыть.</li>
+                            <li>Все ингредиенты смешать. Салат готов!</li>
+                        </ol>
+                    </article>
+
+                    <!-- Рецепт 2 -->
+                    <article class="recipe-card">
+                        <h3>Курица с грибами и сыром</h3>
+                        <p><strong>Ингредиенты:</strong></p>
+                        <ul>
+                            <li>Куриное филе — 4 шт.</li>
+                            <li>Шампиньоны — 300 г</li>
+                            <li>Лук репчатый — 1 шт.</li>
+                            <li>Сыр твердый — 150 г</li>
+                            <li>Сметана или майонез — 100 г</li>
+                            <li>Соль, перец, специи — по вкусу</li>
+                        </ul>
+                        <p><strong>Приготовление:</strong></p>
+                        <ol>
+                            <li>Куриное филе отбить, посолить и поперчить.</li>
+                            <li>Лук мелко нарезать, грибы нарезать пластинками. Обжарить до золотистого цвета.</li>
+                            <li>Выложить куриное филе на противень, сверху распределить грибную начинку.</li>
+                            <li>Посыпать тертым сыром и сбрызнуть сметаной.</li>
+                            <li>Запекать в разогретой до 180°C духовке около 25-30 минут.</li>
+                        </ol>
+                    </article>
+
+                    <!-- Рецепт 3 -->
+                    <article class="recipe-card">
+                        <h3>Ажурные блинчики</h3>
+                        <p><strong>Ингредиенты:</strong></p>
+                        <ul>
+                            <li>Молоко — 1 стакан (250 мл)</li>
+                            <li>Мука пшеничная в/с — 1 стакан (250 мл) + 1 ст. л.</li>
+                            <li>Вода (крутой кипяток) — 1 стакан (250 мл)</li>
+                            <li>Яйца куриные (С0 или С1) — 2 шт.</li>
+                            <li>Масло растительное — 2 ст. л.</li>
+                            <li>Сахар — 2 ст. л.</li>
+                            <li>Соль — 0,5 ч. л.</li>
+                        </ul>
+                        <p><strong>Приготовление:</strong></p>
+                        <ol>
+                            <li>Смешиваем яйца, сахар и соль до однородной массы.</li>
+                            <li>Добавляем молоко и масло. Вводим просеянную муку постепенно, помешивая венчиком.</li>
+                            <li>Вводим крутой кипяток тонкой струйкой при постоянном перемешивании. Оставляем тесто на 15-20 минут.</li>
+                            <li>Выпекаем на хорошо разогретой сковороде на умеренно сильном огне.</li>
+                        </ol>
+                    </article>
+
+                </div>
+            </div>
+        </section>
+
+        <!-- КОМАНДА -->
+        <section id="team" class="section" style="background-color: #f0e6dc;">
+            <div class="container">
+                <h2 class="section-title">Команда проекта</h2>
+                <div class="team-grid">
+                    <!-- Руководитель -->
+                    <div class="team-card" style="grid-column: 1 / -1; max-width: 500px; margin: 0 auto; border: 2px solid #6b4c3b;">
+                        <h4>Филатов Максим Игоревич</h4>
+                        <span class="team-role">Руководитель проекта</span>
+                        <p>Координация команды, связь с преподавателями, контроль сроков, организация финального мероприятия.</p>
+                        <p><a href="tel:89611898226" class="team-contact">+7 961 189-82-26</a> | <a href="mailto:mak.13579filatov@yandex.ru" class="team-contact">mak.13579filatov@yandex.ru</a></p>
+                    </div>
+                    
+                    <!-- Участники -->
+                    <div class="team-card">
+                        <h4>Вербицкий Андрей Станиславович</h4>
+                        <span class="team-role">Сбор рецептов и интервью, создание сайта</span>
+                        <a href="mailto:verbiczkij2007@list.ru" class="team-contact">verbiczkij2007@list.ru</a>
+                    </div>
+                    <div class="team-card">
+                        <h4>Волков Дмитрий Михайлович</h4>
+                        <span class="team-role">Приготовление, создание сайта</span>
+                        <a href="mailto:kakajabroni@mail.ru" class="team-contact">kakajabroni@mail.ru</a>
+                    </div>
+                    <div class="team-card">
+                        <h4>Макаренко Артем Александрович</h4>
+                        <span class="team-role">Видеосъёмка, создание сайта</span>
+                        <a href="mailto:Artemmakenko2007@mail.ru" class="team-contact">Artemmakenko2007@mail.ru</a>
+                    </div>
+                    <div class="team-card">
+                        <h4>Бочаров Никита Дмитриевич</h4>
+                        <span class="team-role">Закупка продуктов, создание сайта</span>
+                        <a href="mailto:niki020408@list.ru" class="team-contact">niki020408@list.ru</a>
+                    </div>
+                </div>
+                
+                <!-- Наставник -->
+                <div style="text-align: center; margin-top: 40px;">
+                    <p style="color: #555; margin-bottom: 5px; font-size: 1.1rem;"><strong>Наставник проекта:</strong> Агаева Надежда Юрьевна (nadinn_ktn@mail.ru)</p>
+                    <p style="color: #777; font-size: 0.95rem;">Доцент кафедры философии и истории ВГУИТ</p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2026 Проект «Кулинарная история поколений ВГУИТ». Все права защищены.</p>
+            <p class="footer-small">ФГБОУ ВО «ВГУИТ», г. Воронеж, ул. Проспект революции, 19</p>
+        </div>
+    </footer>
+</body>
+</html>
